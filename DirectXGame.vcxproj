@@ -109,7 +109,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MathUtilityText.cpp" />
+    <ClCompile Include="MathUtilityEx.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
@@ -195,12 +195,10 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Gauge.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="MathUtilityText.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="worldTransform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

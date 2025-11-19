@@ -1,9 +1,8 @@
 #pragma once
 #include"KamataEngine.h"
-#include <math/Vector3.h>
-#include <3d/WorldTransform.h>
 #include "PlayerBullet.h"
 
+//Vector3とかMatrix4x4でエラーが出たらkamataEngineの#includeとusing namespaceが必要。
 using namespace KamataEngine;
 
 class Player 
@@ -16,18 +15,21 @@ public:
 	~Player();
 
 	//初期化
-	void Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera, const Vector3& position);
+	void Initialize();
 	// 更新
 	void Update();
 	// 描画
-	void Draw();
+	void Draw(const Camera& camera);
+	void Shoot();
 
 private:
-	KamataEngine::WorldTransform worldTransform_;
-	KamataEngine::Model* model_ = nullptr;
-	KamataEngine::Camera* camera_ = nullptr;
+	
+	WorldTransform worldTransform_;
+	Model* model_ = nullptr;
 
+	//プレイヤーの弾
 	float x_, y_;
 	std::vector<PlayerBullet*> bullets_;
-	void Shoot();
+	
+	Vector3 startPos = {0.0f, 0.0f, 0.0f};
 };

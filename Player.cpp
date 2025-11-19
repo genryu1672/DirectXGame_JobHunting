@@ -1,9 +1,12 @@
 #include "Player.h"
-#include <input/Input.h>
+//#include <input/Input.h>
 #include <cassert>
 using namespace KamataEngine;
+using namespace MathUtility;
+Player::Player() 
+{
 
-Player::Player() {}
+}
 
 Player::~Player() 
 {
@@ -11,22 +14,19 @@ Player::~Player()
 }
 
 //初期化
-void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera, const Vector3& position) 
+void Player::Initialize() 
 {
-	// Nullポインタチェック
-	assert(model);
-
-	// 引数として受け取ったデータをメンバ変数に記録する
-	model_ = model;
-	camera_ = camera;
-
+	//モデル
+	model_ = Model::CreateFromOBJ("player", true);
+	
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = position; // 初期配置
+	worldTransform_.translation_ = startPos; // 初期配置
 
 	//プレイヤーの弾の初期化
 	x_ = 300;
 	y_ = 400;
+
 }
 
 // 更新
@@ -57,17 +57,22 @@ void Player::Update()
 }
 
 //描画
-void Player::Draw() 
-{
-	 model_->Draw(worldTransform_, *camera_);
+void Player::Draw(const Camera& camera) {
+	 model_->Draw(worldTransform_, camera);
+	for (auto& b : bullets_) {
+		b->Draw(camera);
+	}
 }
 
+//プレイヤーの弾
 void Player::Shoot() 
 {
 	// SPACE キーで弾を撃つ
 	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
-		Shoot();
+		PlayerBullet* newBullet = new PlayerBullet;
+		newBullet->Initialize(worldTransform_.translation_);
+		bullets_.push_back(newBullet);
 	}
 
 	// 弾更新

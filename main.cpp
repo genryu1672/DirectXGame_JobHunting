@@ -1,30 +1,28 @@
+#include "GameScene.h"
+#include "KamataEngine.h"
+//#include "Player.h"
 #include <Windows.h>
-#include"KamataEngine.h"
-#include"GameScene.h"
-#include "Player.h"
-//グローバル関数
+// グローバル関数
 using namespace KamataEngine;
-
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
-	
+
 	////エンジンの初期化
 	KamataEngine::Initialize(L"LE3D_09_シマノ_ユウト_幽霊の紛争");
-	
-	//DirectXCommonインスタンスの取得
+
+	// DirectXCommonインスタンスの取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
-	//ゲームシーンのインスタンス生成
+	// ゲームシーンのインスタンス生成
 	GameScene* gameScene = new GameScene();
-	//ゲームシーンの初期化
+	// ゲームシーンの初期化
 	gameScene->Initialize();
 
-	//メインループ
+	// メインループ
 	while (true) {
-		//エンジンの更新
-		if (KamataEngine::Update())
-		{
+		// エンジンの更新
+		if (KamataEngine::Update()) {
 			break;
 		}
 		// ゲームシーンの更新
@@ -32,14 +30,13 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 		// 描画開始
 		dxCommon->PreDraw();
-
+		
 		// 描画処理
 		gameScene->Draw();
 
 		// 描画終了
 		dxCommon->PostDraw();
 	}
-	
 
 	// ゲームシーンの開放
 	delete gameScene;
@@ -47,8 +44,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// nullptrの代入
 	gameScene = nullptr;
 
-	//エンジンの終了処理
+	// エンジンの終了処理
 	KamataEngine::Finalize();
-	
+
 	return 0;
 }

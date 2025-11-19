@@ -1,14 +1,13 @@
 #include<KamataEngine.h>
-#include "MathUtilityText.h"
 
 using namespace KamataEngine;
+using namespace MathUtility;
 
 void WorldTransform::UpdateMatrix() {
-	Matrix4x4 matScale = MakeScale(scale_);
-	Matrix4x4 matRot = MakeRotation(rotation_);
-	Matrix4x4 matTrans = MakeTranslation(translation_);
 
-	matWorld_ = matScale * matRot * matTrans;
+	// スケール、回転、平行移動を合成して行列を計算する
+	matWorld_ = MakeAffineMatrix(scale_, rotation_, translation_);
+
 
 	if (parent_) {
 		matWorld_ = matWorld_ * parent_->matWorld_;

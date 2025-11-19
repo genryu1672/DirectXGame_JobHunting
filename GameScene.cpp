@@ -29,9 +29,8 @@ void GameScene::Initialize() {
 	camera_->Initialize();
 
 	//プレイヤーの生成
-	modelPlayer_ = Model::CreateFromOBJ("player", true);
 	player_ = new Player();
-	player_->Initialize(modelPlayer_, camera_, {0, 0, 0});
+	player_->Initialize();
 
 	//ゲージ
 	gauge_ = new Gauge();
@@ -45,12 +44,13 @@ void GameScene::Initialize() {
 // メンバー変数に追加
 int frameCount = 0;
 
-
+ 
 
 void GameScene::Update() {
 	
 	//Playerの更新
 	player_->Update();
+	player_->Shoot();
 
 	frameCount++;
 
@@ -69,28 +69,23 @@ void GameScene::Update() {
 
 void GameScene::Draw() 
 {
-	// DirectXCommonインスタンスの取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
-	// スプライト描画前処理(背景)
 	Sprite::PreDraw(dxCommon->GetCommandList());
 
-	
 	// スプライトインスタンスの描画処理
-	
 	sprite_->Draw();
-	
+
 	stage_->Draw();
+	
 
 	// スプライト描画後処理(背景)
 	Sprite::PostDraw();
-
-	// 深度バッファクリア
 	dxCommon->ClearDepthBuffer();
 	// 3Dモデル描画前処理
 	Model::PreDraw(dxCommon->GetCommandList());
 
 	//プレイヤーの描画
-	player_->Draw();
+	player_->Draw(*camera_);
 
 	// 3Dモデル描画後処理
 	Model::PostDraw();
@@ -101,7 +96,7 @@ void GameScene::Draw()
 	//ゲージ
 	gauge_->Draw();
 
-	//数値
+	// 数値
 	number_->Draw();
 
 	// スプライト描画後処理(背景)
