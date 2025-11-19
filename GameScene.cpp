@@ -49,6 +49,7 @@ int frameCount = 0;
 
 void GameScene::Update() {
 	
+	//Playerの更新
 	player_->Update();
 
 	frameCount++;
@@ -88,7 +89,7 @@ void GameScene::Draw()
 	// 3Dモデル描画前処理
 	Model::PreDraw(dxCommon->GetCommandList());
 
-	
+	//プレイヤーの描画
 	player_->Draw();
 
 	// 3Dモデル描画後処理

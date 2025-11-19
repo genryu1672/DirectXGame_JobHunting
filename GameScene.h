@@ -31,6 +31,9 @@ private:
 	//ステージ
 	Stage* stage_ = nullptr;
 
+	//プレイヤーの弾
+	Player* playerBullet_;
+
 	// プレイヤーモデル
 	KamataEngine::Model* model_ = nullptr;
 	KamataEngine::Model* modelPlayer_ = nullptr;

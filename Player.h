@@ -2,6 +2,7 @@
 #include"KamataEngine.h"
 #include <math/Vector3.h>
 #include <3d/WorldTransform.h>
+#include "PlayerBullet.h"
 
 using namespace KamataEngine;
 
@@ -25,4 +26,8 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::Model* model_ = nullptr;
 	KamataEngine::Camera* camera_ = nullptr;
+
+	float x_, y_;
+	std::vector<PlayerBullet*> bullets_;
+	void Shoot();
 };

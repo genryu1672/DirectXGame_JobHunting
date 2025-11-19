@@ -23,6 +23,10 @@ void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position; // 初期配置
+
+	//プレイヤーの弾の初期化
+	x_ = 300;
+	y_ = 400;
 }
 
 // 更新
@@ -56,4 +60,18 @@ void Player::Update()
 void Player::Draw() 
 {
 	 model_->Draw(worldTransform_, *camera_);
+}
+
+void Player::Shoot() 
+{
+	// SPACE キーで弾を撃つ
+	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
+	{
+		Shoot();
+	}
+
+	// 弾更新
+	for (auto& b : bullets_) {
+		b->Update();
+	}
 }
